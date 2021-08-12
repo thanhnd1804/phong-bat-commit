@@ -1,7 +1,7 @@
 import jsonfile from "jsonfile";
 import moment from "moment";
 import simpleGit from "simple-git";
-import { Random } from "random";
+import random from "random";
 
 const path = "./data.json";
 
