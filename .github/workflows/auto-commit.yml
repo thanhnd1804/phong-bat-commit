@@ -2,7 +2,7 @@ name: Auto Commit
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Chạy mỗi ngày lúc 00:00 UTC (7:00 AM giờ Việt Nam)
+    - cron: "*/10 * * * *" # Chạy 10 phút một lần
   workflow_dispatch: # Cho phép chạy thủ công nếu cần
 
 jobs:
@@ -13,12 +13,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
 
       - name: Cấu hình Git
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[thanhnd]"
+          git config --global user.email "github-actions[thanhnd]@users.noreply.github.com"
+          git remote -v
 
       - name: Thực hiện thay đổi
         run: |
@@ -33,6 +34,8 @@ jobs:
           fi
 
       - name: Commit & Push thay đổi
+        env:
+            PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git commit -m "Auto commit: $(date)"
-          git push origin main
+          git push https://x-access-token:${PAT_TOKEN}@github.com/ths2nh/phong-bat-commit.git main
