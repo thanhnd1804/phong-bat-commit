@@ -17,25 +17,29 @@ const markCommit = async (date) => {
 
   const git = simpleGit();
   await git.add([path]);
-  await git.commit(date.toISOString(), { "--date": date.toISOString() });
+  await git.commit(
+    "Auto commit " + moment(date).format("HH:mm:ss DD/MM/YYYY"),
+    {
+      "--date": date.toISOString(),
+    }
+  );
 };
 
 const makeCommits = async (n) => {
   const git = simpleGit();
 
   for (let i = 0; i < n; i++) {
-    const randomWeeks = random.int(0, 54 * 4);
-    const randomDays = random.int(0, 6);
-
-    const randomDate = moment("2019-01-01")
-      .add(randomWeeks, "weeks")
-      .add(randomDays, "days");
+    const randomDate = moment();
 
     if (isValidDate(randomDate)) {
-      console.log("Creating commit: " + randomDate.toISOString());
+      console.log(
+        "Creating commit: " + moment(randomDate).format("HH:mm:ss DD/MM/YYYY")
+      );
       await markCommit(randomDate);
     } else {
-      console.log("Invalid date: " + randomDate.toISOString());
+      console.log(
+        "Invalid date: " + moment(randomDate).format("HH:mm:ss DD/MM/YYYY")
+      );
     }
   }
 
