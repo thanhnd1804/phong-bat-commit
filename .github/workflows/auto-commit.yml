@@ -2,7 +2,7 @@ name: Auto Commit
 
 on:
   schedule:
-    - cron: "*/1 * * * *" # Chạy 10 phút một lần
+    - cron: "*/1 * * * *" # Chạy 1 phút một lần
   workflow_dispatch: # Cho phép chạy thủ công nếu cần
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
       - name: Cấu hình Git
         run: |
           git config --global user.name "github-actions[thanhnd]"
-          git config --global user.email "github-actions[thanhnd]@users.noreply.github.com"
+          git config --global user.email ${{ secrets.EMAIL }}
           git remote -v
 
       - name: Thực hiện thay đổi
