@@ -23,7 +23,7 @@ jobs:
 
       - name: Thực hiện thay đổi
         run: |
-          echo "Cập nhật lúc $(date)"
+          echo "Cập nhật lúc $(date -d "7 hours" '+%Y-%m-%d %H:%M:%S')" >> auto-update-log.txt
 
       - name: Kiểm tra sự thay đổi
         run: |
@@ -37,5 +37,5 @@ jobs:
         env:
             PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
-          git commit -m "Auto commit: $(date)"
+          git commit -m "Auto commit: $(date -d "7 hours" '+%Y-%m-%d %H:%M:%S')"
           git push https://x-access-token:${PAT_TOKEN}@github.com/ths2nh/phong-bat-commit.git main
