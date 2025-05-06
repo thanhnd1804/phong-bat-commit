@@ -2,8 +2,8 @@ name: Auto Commit
 
 on:
   schedule:
-    - cron: "*/5 * * * *" # Chạy 5 phút một lần
-  workflow_dispatch: # Cho phép chạy thủ công nếu cần
+    - cron: "*/5 * * * *" # Run every 5 minutes
+  workflow_dispatch: # Can manual run
 
 jobs:
   auto-commit:
@@ -15,25 +15,25 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Cấu hình Git
+      - name: Git config
         run: |
           git config --global user.name "github-actions[thanhnd]"
           git config --global user.email ${{ secrets.EMAIL }}
           git remote -v
 
-      - name: Thực hiện thay đổi
+      - name: Excecute changes
         run: |
-          echo "Cập nhật lúc $(date -d "7 hours" '+%H:%M:%S %d/%m/%Y')" >> auto-update-log.txt
+          echo "Update at: $(date -d "7 hours" '+%H:%M:%S %d/%m/%Y')" > auto-update-log.txt
 
-      - name: Kiểm tra sự thay đổi
+      - name: Check changes
         run: |
           git add .
           if git diff --cached --quiet; then
-            echo "Không có thay đổi nào, thoát..."
+            echo "Not have any changes, exitting..."
             exit 0
           fi
 
-      - name: Commit & Push thay đổi
+      - name: Commit & Push changes
         env:
             PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
