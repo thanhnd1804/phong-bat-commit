@@ -38,4 +38,4 @@ jobs:
             PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git commit -m "Auto commit: $(date -d "7 hours" '+%H:%M:%S %d/%m/%Y')"
-          git push https://x-access-token:${PAT_TOKEN}@github.com/ths2nh/phong-bat-commit.git main
+          git push https://x-access-token:${PAT_TOKEN}@github.com/thanhnd1804/phong-bat-commit.git main
