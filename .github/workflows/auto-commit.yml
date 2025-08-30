@@ -20,6 +20,7 @@ jobs:
           git config --global user.name "github-actions[thanhnd]"
           git config --global user.email ${{ secrets.EMAIL }}
           git remote -v
+          echo $secrets.EMAIL
 
       - name: Excecute changes
         run: |
@@ -38,4 +39,5 @@ jobs:
             PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git commit -m "Auto commit: $(date -d "7 hours" '+%H:%M:%S %d/%m/%Y')"
+          git log
           git push https://x-access-token:${PAT_TOKEN}@github.com/thanhnd1804/phong-bat-commit.git main
